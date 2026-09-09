@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import csv
+import math
+from typing import List
 from typing import Tuple
 
 
@@ -10,11 +12,7 @@ def index_range(page: int, page_size: int) -> Tuple[int, int]:
     start_index = (page - 1) * page_size
     end_index = page * page_size
     tupl = (start_index, end_index)
-    return tupl
-    
-import csv
-import math
-from typing import List
+    return tupl    
 
 
 class Server:
@@ -36,11 +34,11 @@ class Server:
 
         return self.__dataset
 
-    def get_page(page=1, page_size=10 ) -> Tuple[int, int]:
+    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         assert (isinstance(page, int) and isinstance(page_size, int)), "Page and page_size must be positive integers."
         assert (page > 0 and page_size > 0), "Page and page_size must be positive integers."
         start, end = index_range(page, page_size)
         data = self.dataset()
         if start >= len(data):
-            return[]
-            return data[start:end]
+            return []
+        return data[start:end]
